@@ -96,25 +96,60 @@ assegnati, per evitare sovrapposizioni inutili nella griglia.
 Per DoqTool, Maccu e balzar non risulta un URL di produzione confermato nei
 repo — i link puntano alla repo GitHub finché non vengono forniti URL live.
 
+## Stack: niente Next.js/Tailwind
+
+Deciso esplicitamente con l'utente: il sito è una vetrina one-page che
+rimanda quasi tutto a risorse esterne (repo, demo live) — nessun dato
+dinamico, nessun form, nessun CMS. Next.js + Tailwind sarebbero over-coding
+per questo scope: aggiungono build step, `node_modules`, complessità di
+deploy senza alcun beneficio reale qui. Vercel serve siti statici a build
+zero, quindi non c'è nessun compromesso sul lato hosting.
+
+**Scelta: HTML + CSS statico, nessun framework, nessun build step.**
+Se in futuro servisse contenuto dinamico (blog degli sketch, CMS) si
+rivaluta — ma non si progetta ora per quello scenario ipotetico.
+
+## Struttura del repo (sito reale)
+
+```
+index.html       — unica pagina, markup semantico, nessun JS (non ancora
+                    necessario: lo smooth scroll è CSS, `scroll-behavior`)
+styles.css        — tutti gli stili, token colore/tipografia come custom
+                    properties su :root (stessi valori descritti sopra)
+fonts/
+  geist.woff2       — Geist Sans variabile (100–900), self-hosted
+  geist-mono.woff2  — Geist Mono variabile (100–900), self-hosted
+```
+
+Font serviti come file statici (non data URI): a differenza della preview
+Artifact — vincolata dalla CSP a font inline — qui i file separati sono
+cacheable dal browser, scelta più corretta per un sito di produzione.
+
+Verificato con screenshot Playwright (desktop 1280px, mobile 390px): grafo
+orbitale nell'hero corretto a desktop, pillole impilate in riga su mobile
+senza linee SVG (comportamento atteso, gestito via media query).
+
 ## Stato attuale
 
 - [x] Direzione visiva approvata (lista nera + hero ibrida)
-- [x] Preview statica HTML pubblicata come Artifact (iterazione 2: teal +
-      Geist + contenuti progetti reali)
-- [ ] Scaffolding progetto reale (Next.js + Tailwind, deploy-ready Vercel)
+- [x] Decisione stack: HTML/CSS statico, no framework
+- [x] Sito reale scaffoldato (`index.html` + `styles.css` + `fonts/`),
+      verificato in browser (desktop + mobile)
 - [ ] Microinterazioni (rimandate, da definire in una sessione successiva)
 - [ ] Foto reale dell'utente al posto del placeholder "MA" nell'hero
 - [ ] URL live per DoqTool/Maccu/balzar, se/quando disponibili
-- [ ] Analisi del portfolio Framer esistente (madesign.framer.ai) — non
-      raggiungibile dal proxy di rete di questa sessione (curl → 403 a
-      livello di tunnel). Riprovare da un ambiente senza quella restrizione,
-      o chiedere all'utente di incollare i contenuti.
+- [ ] Contenuti dal portfolio Framer esistente (madesign.framer.ai) — non
+      raggiungibile dal proxy di rete di questa sessione (403 a livello di
+      tunnel, confermato via `/__agentproxy/status`: policy denial su
+      `framer.ai`, non un problema del sito). L'utente porterà screenshot
+      delle pagine nella prossima interazione.
+- [ ] Deploy su Vercel (repo pronta: basta collegare il progetto, zero
+      config necessaria per un sito statico con `index.html` in root)
 
 ## Prossimi passi proposti
 
-1. Validare con l'utente questa seconda iterazione (colore/font/contenuti).
-2. Impostare il progetto Next.js (App Router) + Tailwind, componentizzando
-   quanto già disegnato nella preview HTML/CSS.
-3. Deploy iniziale su Vercel per avere un URL condivisibile presto, anche
-   con contenuti parziali.
-4. Tornare sulle microinterazioni una volta stabile la struttura.
+1. Utente porta screenshot del portfolio Framer → aggiornare copy/contenuti
+   di conseguenza (about, eventuali progetti non ancora coperti).
+2. Sostituire il placeholder "MA"/"la tua foto qui" con una foto reale.
+3. Collegare il repo a Vercel per un URL condivisibile.
+4. Tornare sulle microinterazioni una volta stabili contenuti e struttura.
