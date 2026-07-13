@@ -8,7 +8,8 @@ menzionato dall'utente).
 
 Repo di destinazione: `ciao-madesign/personalhub`.
 Branch di lavoro: `claude/personal-portfolio-site-a0613u`.
-Hosting previsto: Vercel.
+Hosting: GitHub Pages — https://ciao-madesign.github.io/personalhub/
+(deciso inizialmente Vercel, poi cambiato dall'utente).
 
 Questo file va tenuto aggiornato ad ogni sessione: è la fonte di verità per
 le decisioni di design/contenuto prese finora, non solo un log.
@@ -102,8 +103,7 @@ Deciso esplicitamente con l'utente: il sito è una vetrina one-page che
 rimanda quasi tutto a risorse esterne (repo, demo live) — nessun dato
 dinamico, nessun form, nessun CMS. Next.js + Tailwind sarebbero over-coding
 per questo scope: aggiungono build step, `node_modules`, complessità di
-deploy senza alcun beneficio reale qui. Vercel serve siti statici a build
-zero, quindi non c'è nessun compromesso sul lato hosting.
+deploy senza alcun beneficio reale qui.
 
 **Scelta: HTML + CSS statico, nessun framework, nessun build step.**
 Se in futuro servisse contenuto dinamico (blog degli sketch, CMS) si
@@ -125,9 +125,29 @@ Font serviti come file statici (non data URI): a differenza della preview
 Artifact — vincolata dalla CSP a font inline — qui i file separati sono
 cacheable dal browser, scelta più corretta per un sito di produzione.
 
-Verificato con screenshot Playwright (desktop 1280px, mobile 390px): grafo
-orbitale nell'hero corretto a desktop, pillole impilate in riga su mobile
-senza linee SVG (comportamento atteso, gestito via media query).
+**Path relativi, non assoluti**: `index.html`/`styles.css` referenziano
+`styles.css` e `fonts/...` senza `/` iniziale. Necessario per GitHub Pages:
+un repo-project-page come questo è servito da un sottopercorso
+(`ciao-madesign.github.io/personalhub/`, non dalla radice del dominio) — un
+path assoluto tipo `/fonts/geist.woff2` risolverebbe a
+`ciao-madesign.github.io/fonts/geist.woff2` (404). Verificato servendo il
+sito da un mount point `/personalhub/` locale, non solo dalla radice.
+
+Verificato con screenshot Playwright (desktop 1280px, mobile 390px, e sotto
+il sottopercorso `/personalhub/`): grafo orbitale nell'hero corretto a
+desktop, pillole impilate in riga su mobile senza linee SVG (comportamento
+atteso, gestito via media query).
+
+## Deploy su GitHub Pages
+
+Non ancora attivato lato repo. Serve un passaggio manuale nelle impostazioni
+GitHub (Settings → Pages → Source: Deploy from a branch) che questa sessione
+non ha strumenti per fare da API — va fatto dall'utente o affidato a un
+prossimo giro con permessi adeguati. Il branch di lavoro attuale è
+`claude/personal-portfolio-site-a0613u`: perché l'URL pubblico serva questi
+file, la source di Pages deve puntare a questo branch (root) oppure il
+branch va mergiato su `main` e Pages configurato su `main` (root) — nessuna
+GitHub Action di build necessaria, è già puro output statico.
 
 ## Stato attuale
 
@@ -143,13 +163,14 @@ senza linee SVG (comportamento atteso, gestito via media query).
       tunnel, confermato via `/__agentproxy/status`: policy denial su
       `framer.ai`, non un problema del sito). L'utente porterà screenshot
       delle pagine nella prossima interazione.
-- [ ] Deploy su Vercel (repo pronta: basta collegare il progetto, zero
-      config necessaria per un sito statico con `index.html` in root)
+- [ ] Attivare GitHub Pages sul repo (Settings → Pages), puntato al branch
+      giusto — vedi sezione "Deploy su GitHub Pages" sopra
 
 ## Prossimi passi proposti
 
 1. Utente porta screenshot del portfolio Framer → aggiornare copy/contenuti
    di conseguenza (about, eventuali progetti non ancora coperti).
 2. Sostituire il placeholder "MA"/"la tua foto qui" con una foto reale.
-3. Collegare il repo a Vercel per un URL condivisibile.
+3. Attivare GitHub Pages (merge su `main` + Settings → Pages) per avere
+   l'URL pubblico https://ciao-madesign.github.io/personalhub/ live.
 4. Tornare sulle microinterazioni una volta stabili contenuti e struttura.
