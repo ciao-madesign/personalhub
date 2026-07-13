@@ -140,14 +140,12 @@ atteso, gestito via media query).
 
 ## Deploy su GitHub Pages
 
-Non ancora attivato lato repo. Serve un passaggio manuale nelle impostazioni
-GitHub (Settings → Pages → Source: Deploy from a branch) che questa sessione
-non ha strumenti per fare da API — va fatto dall'utente o affidato a un
-prossimo giro con permessi adeguati. Il branch di lavoro attuale è
-`claude/personal-portfolio-site-a0613u`: perché l'URL pubblico serva questi
-file, la source di Pages deve puntare a questo branch (root) oppure il
-branch va mergiato su `main` e Pages configurato su `main` (root) — nessuna
-GitHub Action di build necessaria, è già puro output statico.
+`claude/personal-portfolio-site-a0613u` è stato mergiato (fast-forward) su
+`main`: `main` ora contiene `index.html` + `styles.css` + `fonts/` pronti.
+Manca solo l'ultimo passaggio manuale — Settings → Pages → Source: Deploy
+from a branch → `main` (root) — che questa sessione non ha strumenti per
+fare da API, va fatto dall'utente. Nessuna GitHub Action di build
+necessaria, è già puro output statico.
 
 ## Stato attuale
 
@@ -163,8 +161,11 @@ GitHub Action di build necessaria, è già puro output statico.
       tunnel, confermato via `/__agentproxy/status`: policy denial su
       `framer.ai`, non un problema del sito). L'utente porterà screenshot
       delle pagine nella prossima interazione.
-- [ ] Attivare GitHub Pages sul repo (Settings → Pages), puntato al branch
-      giusto — vedi sezione "Deploy su GitHub Pages" sopra
+- [x] Branch di lavoro mergiato su `main` (merge fast-forward, nessun
+      conflitto) — `main` ora contiene il sito statico completo
+- [ ] Attivare GitHub Pages sul repo (Settings → Pages → Source: Deploy
+      from a branch → `main`, root) — ultimo passaggio manuale rimasto,
+      questa sessione non ha strumenti per farlo da API
 
 ## Prossimi passi proposti
 
