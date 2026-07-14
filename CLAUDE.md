@@ -123,6 +123,23 @@ richiesta esplicita dell'utente: vivono dentro le stesse 4 categorie dei
 progetti "pesanti", distinti solo dal meta-tag "Sketch" nella card invece di
 un anno inventato.
 
+Corretto dopo la prima stesura, su indicazione dell'utente:
+- **WizTrail** → Product design (non UX): è una web app completa sviluppata
+  al 100% dall'utente, non un case study di processo — il peso ("Live
+  product") la avvicina ad Adapta/balzar più che ai case study Framer.
+- **Jeff** e **Fresco** → UX design (non Product): entrambi centrati su
+  flusso/usabilità nella loro descrizione originale (non parlano di logo o
+  identità visiva, a differenza delle voci Brand), quindi spostati da
+  Product a UX. Se in una sessione successiva emerge che Fresco è più
+  brand-oriented (il naming/wordmark suggerisce lavoro di identità), va
+  rivalutato — l'utente ha detto solo "più brand/UX" senza specificare quale
+  dei due per ciascuno.
+
+**Ordine delle sezioni**: Product design, Technical writing, UX design,
+Brand design — priorità esplicita dell'utente (non l'ordine alfabetico/
+originale usato in precedenza). Stesso ordine riflesso nella nav in alto e
+nelle pillole dell'hero.
+
 **Sistema meta-tag delle card** (sostituisce l'anno, che non avevamo per i
 progetti Framer e non volevamo inventare): prima colonna = "peso" della voce
 (`Live product` / `Progetto` / `Case study` / `Sketch`), seconda colonna =
