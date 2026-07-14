@@ -17,6 +17,13 @@ Branch di lavoro: `claude/personal-portfolio-site-a0613u`.
 Hosting: GitHub Pages — https://ciao-madesign.github.io/personalhub/
 (deciso inizialmente Vercel, poi cambiato dall'utente).
 
+**Istruzione permanente dell'utente**: ogni modifica va pushata anche su
+`main`, non solo sul branch di lavoro ("pusha tutto su main sempre") — non
+chiedere conferma ogni volta, va fatto di default a fine sessione/modifica.
+Attenzione: l'utente carica occasionalmente file direttamente su `main` via
+GitHub UI (es. `img/profile.png`) — i due branch possono divergere, in tal
+caso serve un merge vero (non fast-forward), non un semplice push.
+
 Questo file va tenuto aggiornato ad ogni sessione: è la fonte di verità per
 le decisioni di design/contenuto prese finora, non solo un log.
 
@@ -210,11 +217,9 @@ necessaria, è già puro output statico.
 - [x] Contenuti reali importati da Framer (via screenshot) + repo GitHub:
       15 voci totali su 4 categorie (vedi tabella sopra), bio hero riscritta
 - [ ] Microinterazioni (rimandate, da definire in una sessione successiva)
-- [ ] Foto reale dell'utente al posto del placeholder "MA" nell'hero —
-      markup/CSS già pronti (`<img src="img/profile.png">` in `.orbit-center`,
-      ritaglio circolare via `object-fit: cover`), manca solo il file: questa
-      sessione non ha accesso filesystem alle immagini incollate in chat,
-      l'utente la carica direttamente nel repo su `img/profile.png`
+- [x] Foto reale dell'utente al posto del placeholder "MA" nell'hero —
+      l'utente ha caricato `img/profile.png` direttamente su `main` via
+      GitHub UI, mergiato nel branch di lavoro
 - [ ] Thumbnail reali dei progetti al posto del placeholder pattern
       diagonale (nessuna immagine è stata scaricata/incorporata da fonti
       esterne — solo i link di approfondimento)
