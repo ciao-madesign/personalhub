@@ -66,27 +66,60 @@ coerenza con l'accento, invece di restare grigi neutri di default.
 
 ## Tipografia
 
-- **Geist** (variabile, peso 100–900) — display e body. Usata sia per i
-  titoli (pesi 600–700, tracking negativo) sia per il testo corrente (peso
-  400).
-- **Geist Mono** (variabile) — label, tag di categoria, meta dati (date,
-  tipo progetto), navigazione.
+- **Instrument Serif** (peso 400 unico, normal + italic) — display: nome in
+  hero (h1), titoli dei progetti (h3), bio hero (italic), firma nel footer
+  (italic). Un solo peso disponibile: nessun `font-weight` diverso da 400 va
+  usato con questa famiglia (niente 500/600/700, il browser farebbe un
+  fake-bold).
+- **Instrument Sans** (variabile, peso 400–700, normal + italic) — body:
+  descrizioni progetto, intro di sezione, testo corrente generico.
+- **Geist Mono** (variabile) — tenuto per label, tag di categoria, meta dati,
+  navigazione: è una convenzione funzionale (dati/etichette), non la firma
+  tipografica del sito, quindi resta anche nella direzione "più elegante".
 
-Storia: la prima iterazione usava Fraunces (serif editoriale) + IBM Plex
-Mono, con un'estetica da "manuale tecnico/scheda spec" (bracket, tag stile
-codice a barre). L'utente l'ha giudicata "troppo industrial" e ha chiesto
-qualcosa "più tech" → sostituita con Geist + Geist Mono, il typeface nativo
-di Vercel: coerente con l'hosting scelto, percepito come più
-"tech/contemporaneo" della coppia precedente.
+Storia: prima iterazione Fraunces + IBM Plex Mono ("troppo industrial") →
+Geist + Geist Mono ("più tech", legato all'hosting Vercel inizialmente
+previsto) → **Instrument Serif + Instrument Sans** ("più elegante, meno
+tech" — richiesta esplicita dopo il passaggio a GitHub Pages, quindi il
+legame con Vercel non era più un argomento a favore di Geist). Instrument
+Serif è stato scelto tra tre proposte (alternative: Fraunces uno "usato con
+più delicatezza", o Cormorant Garamond per continuità con il Framer
+originale) perché è la coppia più "di tendenza" nel design editoriale
+attuale, coerente con la richiesta di un sito "attento alle tendenze".
 
-Font incorporati come data URI (base64) nella preview per rispettare la CSP
-degli Artifact — nel progetto Next.js reale andranno serviti normalmente
-(`next/font` con Geist è supportato nativamente).
+Font serviti come file statici self-hosted in `fonts/` (non data URI, vedi
+sezione sulla struttura del repo).
 
 Microinterazioni: non ancora affrontate ("le vediamo più tardi" — richiesta
 esplicita dell'utente di rimandarle). Per ora solo transizioni di base
 (colore/bordo su hover, ~150ms) e un fade-in leggero all'ingresso della hero,
 disattivato sotto `prefers-reduced-motion`.
+
+## Sfondo animato
+
+Richiesta esplicita: "pattern animato tipo puntini". Proposte tre opzioni
+(griglia di puntini con drift CSS puro, campo di particelle/costellazione
+via canvas nell'hero, griglia statica + luce che si sposta) — l'utente ha
+scelto la terza. Implementata come `.bg-decor`: un `<div>` fisso
+(`position: fixed`, prima cosa nel `<body>`) con due layer di
+`background-image` sulla stessa proprietà — un `radial-gradient` a griglia
+di puntini (statico, tassellato ogni 24px) e un secondo `radial-gradient` più
+grande e sfumato (il "chiarore") la cui `background-position` viene animata
+lentamente (70s, ease-in-out, alternate) via `@keyframes`; i due layer usano
+`background-blend-mode: screen, normal` così il chiarore illumina i puntini
+che attraversa invece di limitarsi a sovrapporsi. `prefers-reduced-motion`
+disattiva l'animazione (resta la griglia statica). `pointer-events: none`
+per non intercettare i click.
+
+**Bug trovato e corretto**: la prima versione usava `z-index: -1` sul div,
+pensando lo mandasse dietro a tutto — invece lo mandava dietro anche allo
+sfondo del `<body>`, rendendolo invisibile (verificato via screenshot: zero
+puntini visibili nonostante il CSS calcolato fosse corretto). La causa è
+l'ordine di painting CSS: un discendente `position: fixed` con `z-index`
+esplicito (anche negativo) partecipa allo stacking context della radice, che
+si piazza sotto il colore di sfondo del `<body>` stesso. Soluzione: nessuno
+`z-index` sul div, lasciato come primo figlio di `<body>` così l'ordine nel
+DOM basta a tenerlo dietro a header/main.
 
 ## Contenuti reali
 
@@ -204,8 +237,14 @@ index.html       — unica pagina, markup semantico, nessun JS (non ancora
 styles.css        — tutti gli stili, token colore/tipografia come custom
                     properties su :root (stessi valori descritti sopra)
 fonts/
-  geist.woff2       — Geist Sans variabile (100–900), self-hosted
-  geist-mono.woff2  — Geist Mono variabile (100–900), self-hosted
+  instrument-serif.woff2         — Instrument Serif normal, peso 400 unico
+  instrument-serif-italic.woff2  — Instrument Serif italic, peso 400 unico
+  instrument-sans.woff2          — Instrument Sans variabile (400–700), normal
+  instrument-sans-italic.woff2   — Instrument Sans variabile (400–700), italic
+  geist-mono.woff2               — Geist Mono variabile (100–900), self-hosted
+img/
+  profile.png       — foto reale dell'utente, avatar hero
+  projects/          — thumbnail progetti, vedi tabella nomi file sopra
 ```
 
 Font serviti come file statici (non data URI): a differenza della preview
@@ -216,8 +255,8 @@ cacheable dal browser, scelta più corretta per un sito di produzione.
 `styles.css` e `fonts/...` senza `/` iniziale. Necessario per GitHub Pages:
 un repo-project-page come questo è servito da un sottopercorso
 (`ciao-madesign.github.io/personalhub/`, non dalla radice del dominio) — un
-path assoluto tipo `/fonts/geist.woff2` risolverebbe a
-`ciao-madesign.github.io/fonts/geist.woff2` (404). Verificato servendo il
+path assoluto tipo `/fonts/geist-mono.woff2` risolverebbe a
+`ciao-madesign.github.io/fonts/geist-mono.woff2` (404). Verificato servendo il
 sito da un mount point `/personalhub/` locale, non solo dalla radice.
 
 Verificato con screenshot Playwright (desktop 1280px, mobile 390px, e sotto

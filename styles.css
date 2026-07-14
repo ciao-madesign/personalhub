@@ -1,9 +1,30 @@
 @font-face {
-  font-family: 'Geist';
+  font-family: 'Instrument Serif';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
-  src: url('fonts/geist.woff2') format('woff2');
+  src: url('fonts/instrument-serif.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/instrument-serif-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('fonts/instrument-sans.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('fonts/instrument-sans-italic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Geist Mono';
@@ -25,9 +46,9 @@
   --accent-soft: #37b8ac33;
   --hair: #1f2929;
   --radius: 2px;
-  --font-display: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, 'Iowan Old Style', serif;
   --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-  --font-body: 'Geist', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Instrument Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -45,6 +66,29 @@ body {
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- ambient background: dot grid + slow-moving light ---------- */
+.bg-decor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle 42vmax at 20% 25%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
+    radial-gradient(color-mix(in srgb, var(--accent) 38%, transparent) 1px, transparent 1.5px);
+  background-size: 100% 100%, 24px 24px;
+  background-repeat: no-repeat, repeat;
+  background-blend-mode: screen, normal;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bg-decor {
+    animation: bg-drift 70s ease-in-out infinite alternate;
+  }
+}
+@keyframes bg-drift {
+  0%   { background-position: 10% 15%, 0 0; }
+  50%  { background-position: 85% 60%, 0 0; }
+  100% { background-position: 25% 85%, 0 0; }
 }
 
 a { color: inherit; }
@@ -70,12 +114,18 @@ a:focus-visible, button:focus-visible {
 }
 .topbar-inner {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 0.6rem 1.5rem;
   padding: 0.9rem clamp(1.25rem, 4vw, 3rem);
   max-width: 1040px;
   margin: 0 auto;
+}
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
 }
 .topbar-mark {
   font-family: var(--font-mono);
@@ -85,6 +135,24 @@ a:focus-visible, button:focus-visible {
   text-decoration: none;
   white-space: nowrap;
 }
+.topbar-external {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.topbar-external a {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+.topbar-external a:hover { color: var(--accent-hover); }
 .topbar-nav {
   display: flex;
   gap: clamp(0.9rem, 2vw, 1.6rem);
@@ -138,10 +206,10 @@ a:focus-visible, button:focus-visible {
 
 .hero-text h1 {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2.6rem, 5.4vw + 1rem, 4.6rem);
+  font-weight: 400;
+  font-size: clamp(3rem, 6vw + 1rem, 5.4rem);
   line-height: 0.98;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   margin: 0 0 1.1rem;
   text-wrap: balance;
   color: var(--paper);
@@ -154,10 +222,11 @@ a:focus-visible, button:focus-visible {
   margin: 0 0 1.1rem;
 }
 .hero-text p.about {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
+  font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.05rem, 1vw + 0.85rem, 1.25rem);
-  line-height: 1.6;
+  font-size: clamp(1.2rem, 1.1vw + 0.95rem, 1.45rem);
+  line-height: 1.5;
   max-width: 42ch;
   color: var(--paper-dim);
   margin: 0;
@@ -333,10 +402,9 @@ section.discipline {
 }
 .project h3 {
   font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  font-size: 1.1rem;
-  line-height: 1.25;
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.2;
   margin: 0.35rem 0 0.25rem;
   color: var(--paper);
   text-wrap: balance;
@@ -363,8 +431,9 @@ footer {
 }
 footer .sign {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.35rem;
   color: var(--paper);
   margin: 0;
 }
