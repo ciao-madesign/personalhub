@@ -257,7 +257,7 @@ formato cambiato da `.jpg` a `.png` su richiesta esplicita dell'utente):
 ```
 img/projects/adapta.png           img/projects/wego.png
 img/projects/balzar.png           img/projects/jeff.png
-img/projects/wiztrail.png         img/projects/fresco.png
+img/projects/wiztrail.png         img/projects/jeff.jpg
 img/projects/buon-mercato.png     img/projects/sign-up-page.png
 img/projects/doqtool.png          img/projects/lynx-provision.png
 img/projects/vetta-mountainwear.png
@@ -266,6 +266,23 @@ img/projects/kb.png
 img/projects/asd-taino.png
 img/projects/logo-4-fun.png
 ```
+
+Tutte e 15 caricate dall'utente e verificate a schermo (nessuna richiesta
+fallita) — `jeff.jpg` è l'unica in `.jpg` invece di `.png` (formato del
+file originale, il riferimento nel markup usa l'estensione reale).
+
+**Errori di upload ricorrenti, corretti**: l'utente ha caricato le
+immagini via GitHub UI due volte con problemi simili — (1) le prime 12
+sono finite sia in `img/` che in `img/projects/` (duplicati byte-identici,
+verificato via md5sum, cancellate le copie in `img/`); (2) `jeff.jpg` è
+finito in `img/` invece che in `img/projects/` (spostato); (3) il file per
+KB era stato caricato come `img/projects/mockup embroidery.png` (nome del
+export, non rinominato) — l'utente l'ha poi ricaricato correttamente come
+`kb.png` ma senza rimuovere il vecchio, quindi anche quello è stato
+cancellato (stesso file, verificato via md5sum). **Occhio a questo pattern
+in sessioni future**: dopo ogni round di upload dell'utente, controllare
+`img/` e `img/projects/` per duplicati/posizioni sbagliate prima di dare
+per scontato che tutto sia a posto.
 
 ## Stack: niente Next.js/Tailwind
 
@@ -344,9 +361,8 @@ necessaria, è già puro output statico.
 - [x] Foto reale dell'utente al posto del placeholder "MA" nell'hero —
       l'utente ha caricato `img/profile.png` direttamente su `main` via
       GitHub UI, mergiato nel branch di lavoro
-- [ ] Thumbnail reali dei progetti al posto del placeholder pattern
-      diagonale (nessuna immagine è stata scaricata/incorporata da fonti
-      esterne — solo i link di approfondimento)
+- [x] Thumbnail reali per tutti e 15 i progetti, caricate dall'utente in
+      `img/projects/` via GitHub UI
 - [ ] URL live per DoqTool/Maccu, se/quando disponibili
 - [x] Branch di lavoro mergiato su `main` (merge fast-forward, nessun
       conflitto) — `main` ora contiene il sito statico completo
