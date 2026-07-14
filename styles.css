@@ -74,9 +74,9 @@ body {
   inset: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(circle 42vmax at 20% 25%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
-    radial-gradient(color-mix(in srgb, var(--accent) 38%, transparent) 1px, transparent 1.5px);
-  background-size: 100% 100%, 24px 24px;
+    radial-gradient(circle 42vmax at 20% 25%, color-mix(in srgb, var(--paper) 6%, transparent), transparent 70%),
+    radial-gradient(color-mix(in srgb, var(--paper) 12%, transparent) 1px, transparent 1.5px);
+  background-size: 100% 100%, 34px 34px;
   background-repeat: no-repeat, repeat;
   background-blend-mode: screen, normal;
 }
