@@ -98,7 +98,7 @@ leggere README/doc di design):
 | Progetto | Repo | Categoria | Link nel sito |
 |---|---|---|---|
 | DoqTool | `ciao-madesign/EasyDoc` | Technical writing | repo (nessuna demo web ancora) |
-| WizTrail | `ciao-madesign/WizTrail` | UX design | https://wiz-trail.vercel.app/ |
+| WizTrail | `ciao-madesign/WizTrail` | Product design | https://wiz-trail.vercel.app/ |
 | Maccu | `ciao-madesign/Maccu` | Brand design | repo (nessun URL live confermato) |
 | Adapta | `ciao-madesign/Adapta` | Product design | https://adapta.run |
 | balzar | `ciao-madesign/balzar` | Product design | https://balzar-eight.vercel.app/ |
@@ -111,13 +111,13 @@ dall'utente, riscritti in italiano):
 | Wego | UX design | PDF process deck | App carpooling, case study completo |
 | Sign up page | UX design | Figma prototype | Sketch, template UI |
 | Lynx ProVision | UX design | link Framer (progetto, non pubblicato — possibile 403 per chi non ha accesso) | Sketch, landing page occhiali sportivi |
+| Vetta Mountainwear | Brand design (prima voce della sezione) | Figma prototype | Sketch, naming + logo |
 | KB | Brand design | PDF process deck | Brand abbigliamento tecnico alpino |
 | asd Taino | Brand design | PDF overview | Rebrand società sportiva locale |
-| Vetta Mountainwear | Brand design | Figma prototype | Sketch, naming + logo |
 | Logo 4 fun — Rundagi Trail | Brand design | nessuno | Sketch, card statica (no link) |
-| Jeff | Product design | Figma prototype | App mobile anti-spreco alimentare |
+| Jeff | UX design | Figma prototype | App mobile anti-spreco alimentare |
+| Fresco | UX design | nessuno | Sketch/case study, card statica (no link) — attenzione: nella cartella "Work" del Framer compare come icona separata da "Buon Mercato", **non** sono lo stesso progetto |
 | Buon Mercato | Product design | PDF process deck | Marketplace produttori locali |
-| Fresco | Product design | nessuno | Sketch/case study, card statica (no link) — attenzione: nella cartella "Work" del Framer compare come icona separata da "Buon Mercato", **non** sono lo stesso progetto |
 
 Bio hero riscritta a partire da quella reale del Framer ("Hi, I'm Michele, a
 designer with a passion for creative communication...").
@@ -141,6 +141,9 @@ Corretto dopo la prima stesura, su indicazione dell'utente:
   brand-oriented (il naming/wordmark suggerisce lavoro di identità), va
   rivalutato — l'utente ha detto solo "più brand/UX" senza specificare quale
   dei due per ciascuno.
+- **Vetta Mountainwear** spostato in prima posizione nella sezione Brand
+  design (richiesta esplicita), le altre voci seguono nell'ordine
+  precedente.
 
 **Ordine delle sezioni**: Product design, Technical writing, UX design,
 Brand design — priorità esplicita dell'utente (non l'ordine alfabetico/
@@ -156,6 +159,30 @@ di processo), `LINK` (prototipo Figma/Framer). Le card senza link esterno
 (Fresco, Logo 4 fun) sono `<div class="project static">` invece di `<a>` —
 niente hover/cursor da link, niente tag pill: l'assenza comunica l'assenza
 di risorsa, non serve un'etichetta esplicita.
+
+**Thumbnail dei progetti — dove caricarle**: ogni `.thumb` ha già l'aggancio
+pronto via custom property inline, es.
+`<div class="thumb" style="--thumb-img:url('img/projects/adapta.jpg')">`.
+Basta caricare il file con il nome giusto in `img/projects/` (stesso
+meccanismo usato per `img/profile.png`, via GitHub UI o altro) e l'immagine
+sostituisce automaticamente il pattern diagonale segnaposto — nessuna
+modifica al codice necessaria. Il CSS impila due livelli di background
+(l'immagine sopra, il pattern sotto): se il file manca o il nome non
+combacia, ricade silenziosamente sul segnaposto invece di un'icona rotta.
+Nomi file attesi (tutti `.jpg`, minuscolo, aspect ratio 3:2 consigliato):
+
+```
+img/projects/adapta.jpg           img/projects/wego.jpg
+img/projects/balzar.jpg           img/projects/jeff.jpg
+img/projects/wiztrail.jpg         img/projects/fresco.jpg
+img/projects/buon-mercato.jpg     img/projects/sign-up-page.jpg
+img/projects/doqtool.jpg          img/projects/lynx-provision.jpg
+img/projects/vetta-mountainwear.jpg
+img/projects/maccu.jpg
+img/projects/kb.jpg
+img/projects/asd-taino.jpg
+img/projects/logo-4-fun.jpg
+```
 
 ## Stack: niente Next.js/Tailwind
 
@@ -197,6 +224,14 @@ Verificato con screenshot Playwright (desktop 1280px, mobile 390px, e sotto
 il sottopercorso `/personalhub/`): grafo orbitale nell'hero corretto a
 desktop, pillole impilate in riga su mobile senza linee SVG (comportamento
 atteso, gestito via media query).
+
+**Impaginazione compattata** (richiesta esplicita: "troppo scroll, pagina
+più raccolta"): ridotti proporzionalmente i padding di hero/sezioni/footer,
+il gap della griglia progetti (1.6rem → 1.1rem), la larghezza minima delle
+card (260px → 210px, così su desktop entrano 4 colonne invece di 3) e
+l'aspect ratio delle thumbnail (4:3 → 3:2, meno alte). Altezza pagina totale
+passata da ~4200px a ~3100px a 1280px di viewport (~26% in meno), verificato
+via screenshot.
 
 ## Deploy su GitHub Pages
 
