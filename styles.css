@@ -291,6 +291,10 @@ a:focus-visible, button:focus-visible {
   border-color: var(--accent);
   color: var(--accent);
 }
+.node.static {
+  cursor: default;
+  color: var(--paper-dim);
+}
 .node-list {
   display: flex;
   flex-wrap: wrap;
@@ -299,6 +303,11 @@ a:focus-visible, button:focus-visible {
   margin-top: 1.1rem;
   list-style: none;
   padding: 0;
+}
+
+@keyframes node-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
 }
 
 @media (min-width: 760px) {
@@ -310,8 +319,17 @@ a:focus-visible, button:focus-visible {
     margin: 0;
   }
   .node-list li:nth-child(1) { top: 2%;  left: 50%; transform: translate(-50%, 0); }
-  .node-list li:nth-child(2) { top: 80%; left: 92%; transform: translate(-72%, 0); }
-  .node-list li:nth-child(3) { top: 80%; left: 8%;  transform: translate(-8%, 0); }
+  .node-list li:nth-child(2) { top: 32%; left: 100%; transform: translate(-64%, 0); }
+  .node-list li:nth-child(3) { top: 78%; left: 84%; transform: translate(-72%, 0); }
+  .node-list li:nth-child(4) { top: 68%; left: 4%;  transform: translate(-4%, 0); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .node-list li { animation: node-float 9s ease-in-out infinite; }
+    .node-list li:nth-child(1) { animation-duration: 8s;  animation-delay: 0s; }
+    .node-list li:nth-child(2) { animation-duration: 10s; animation-delay: -2s; }
+    .node-list li:nth-child(3) { animation-duration: 9s;  animation-delay: -5s; }
+    .node-list li:nth-child(4) { animation-duration: 11s; animation-delay: -7s; }
+  }
 }
 
 /* ---------- sections ---------- */
@@ -356,6 +374,18 @@ section.discipline {
   flex-direction: column;
   text-decoration: none;
   color: inherit;
+}
+.project.featured {
+  grid-column: span 2;
+}
+.project.featured .thumb {
+  border-color: var(--accent);
+}
+.project.featured h3 {
+  font-size: 1.5rem;
+}
+@media (max-width: 480px) {
+  .project.featured { grid-column: span 1; }
 }
 .thumb {
   --thumb-img: none;

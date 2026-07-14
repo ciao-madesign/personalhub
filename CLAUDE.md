@@ -37,17 +37,33 @@ scrollano alla sezione corrispondente. Il grafo NON si estende ai progetti
 (troppo fragile su mobile / con pochi o tanti item) — resta confinato
 all'hero.
 
-**Da 4 a 3 competenze in hero/nav**: inizialmente 4 (Product/Technical
-writing/UX/Brand), poi Technical writing è stata assorbita dentro Product
-design (vedi sezione "Contenuti reali" → DoqTool) su richiesta dell'utente:
-"DoqTool è technical writing ma lo allineerei a product design come
-sottocategoria — è un product design di un prodotto specifico per technical
-writing". Nessuna nuova UI per la sottocategoria (sarebbe over-engineering
-per una sola card): DoqTool vive come card normale dentro la griglia Product
-design, il taglio "technical writing" resta leggibile dal titolo/descrizione
-della card stessa, non da un'etichetta dedicata. Pillole hero e nav in alto
-ora hanno 3 voci, non più 4 — grafo orbitale ridisposto a triangolo (alto,
-basso-destra, basso-sinistra) invece del layout a 4 punti.
+**Da 4 a 3 sezioni/nav, ma 4 pillole nell'hero**: inizialmente 4 sezioni
+(Product/Technical writing/UX/Brand), poi Technical writing è stata
+assorbita dentro Product design (vedi sezione "Contenuti reali" → DoqTool)
+su richiesta dell'utente: "DoqTool è technical writing ma lo allineerei a
+product design come sottocategoria — è un product design di un prodotto
+specifico per technical writing". Nessuna nuova UI per la sottocategoria
+(sarebbe over-engineering per una sola card): DoqTool vive come card
+normale dentro la griglia Product design, il taglio "technical writing"
+resta leggibile dal titolo/descrizione della card stessa. Nav in alto: 3
+voci (Product/UX/Brand). Pillole hero invece sono tornate a **4**: l'utente
+ha chiesto di tenere comunque "Technical writer" nel grafo orbitale anche
+senza una sezione a cui rimandare ("è comunque la mia qualifica
+principale") — resa come `<span class="node static">` invece di `<a>`,
+stessa forma a pillola ma senza link/hover/cursor da elemento cliccabile
+(stesso pattern già usato per le card senza link, es. Fresco). Grafo
+orbitale quindi di nuovo a 4 punti (alto, destra, basso-destra,
+basso-sinistra), non più il triangolo a 3.
+
+**Animazione pillole hero**: richiesta esplicita ("le label si muovano
+lentamente in loop"). Ogni `<li>` del grafo orbitale ha un piccolo drift
+verticale in loop (`@keyframes node-float`, ±6px, 8-11s a seconda della
+pillola con delay negativi diversi per non muoversi in sincrono) — usa la
+proprietà CSS `translate` (separata da `transform`) apposta per non entrare
+in conflitto con il `transform: translate(...)` già usato per il
+posizionamento assoluto della pillola stessa. Solo desktop (dentro la media
+query ≥760px dove esiste il grafo), disattivata sotto
+`prefers-reduced-motion`.
 
 Struttura one-page, sezioni per competenza, ciascuna con una griglia di
 progetti (card con thumbnail segnaposto, titolo, descrizione breve, meta in
@@ -207,6 +223,15 @@ priorità esplicita dell'utente (non l'ordine alfabetico/originale usato in
 precedenza). Stesso ordine riflesso nella nav in alto e nelle pillole
 dell'hero.
 
+**Progetto in evidenza**: Adapta è il progetto più importante dell'utente
+("il mio progetto top"), WizTrail il secondo — richiesta esplicita di
+metterli in evidenza/ordine. Implementato con classe `.project.featured`
+solo su Adapta: card a doppia larghezza (`grid-column: span 2`, torna a 1
+sotto 480px), bordo permanentemente accent (non solo in hover come le
+altre), titolo più grande, ed etichetta della prima colonna del meta
+cambiata da "Live product" a "Progetto principale". WizTrail spostato al
+secondo posto nella griglia Product design (dopo Adapta, prima di Balzar).
+
 **Sistema meta-tag delle card** (sostituisce l'anno, che non avevamo per i
 progetti Framer e non volevamo inventare): prima colonna = "peso" della voce
 (`Live product` / `Progetto` / `Case study` / `Sketch`), seconda colonna =
@@ -219,26 +244,27 @@ di risorsa, non serve un'etichetta esplicita.
 
 **Thumbnail dei progetti — dove caricarle**: ogni `.thumb` ha già l'aggancio
 pronto via custom property inline, es.
-`<div class="thumb" style="--thumb-img:url('img/projects/adapta.jpg')">`.
+`<div class="thumb" style="--thumb-img:url('img/projects/adapta.png')">`.
 Basta caricare il file con il nome giusto in `img/projects/` (stesso
 meccanismo usato per `img/profile.png`, via GitHub UI o altro) e l'immagine
 sostituisce automaticamente il pattern diagonale segnaposto — nessuna
 modifica al codice necessaria. Il CSS impila due livelli di background
 (l'immagine sopra, il pattern sotto): se il file manca o il nome non
 combacia, ricade silenziosamente sul segnaposto invece di un'icona rotta.
-Nomi file attesi (tutti `.jpg`, minuscolo, aspect ratio 3:2 consigliato):
+Nomi file attesi (tutti `.png`, minuscolo, aspect ratio 3:2 consigliato —
+formato cambiato da `.jpg` a `.png` su richiesta esplicita dell'utente):
 
 ```
-img/projects/adapta.jpg           img/projects/wego.jpg
-img/projects/balzar.jpg           img/projects/jeff.jpg
-img/projects/wiztrail.jpg         img/projects/fresco.jpg
-img/projects/buon-mercato.jpg     img/projects/sign-up-page.jpg
-img/projects/doqtool.jpg          img/projects/lynx-provision.jpg
-img/projects/vetta-mountainwear.jpg
-img/projects/maccu.jpg
-img/projects/kb.jpg
-img/projects/asd-taino.jpg
-img/projects/logo-4-fun.jpg
+img/projects/adapta.png           img/projects/wego.png
+img/projects/balzar.png           img/projects/jeff.png
+img/projects/wiztrail.png         img/projects/fresco.png
+img/projects/buon-mercato.png     img/projects/sign-up-page.png
+img/projects/doqtool.png          img/projects/lynx-provision.png
+img/projects/vetta-mountainwear.png
+img/projects/maccu.png
+img/projects/kb.png
+img/projects/asd-taino.png
+img/projects/logo-4-fun.png
 ```
 
 ## Stack: niente Next.js/Tailwind
