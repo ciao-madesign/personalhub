@@ -321,6 +321,9 @@ section.discipline {
   border-radius: 999px;
 }
 .project:hover .thumb { border-color: var(--accent); }
+.project.static { cursor: default; }
+.project.static:hover .thumb { border-color: var(--hair); }
+.project.static:hover h3 { color: var(--paper); }
 
 .project .meta {
   display: flex;

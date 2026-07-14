@@ -3,8 +3,14 @@
 Sito portfolio personale di Michele Aldeni: un unico raccoglitore di link e
 piccole preview verso i suoi progetti, organizzato per competenza. Sostituisce
 l'attuale portfolio su Framer (madesign.framer.ai — non raggiungibile dal
-proxy di questa sessione, quindi non ancora analizzato direttamente; solo
-menzionato dall'utente).
+proxy di questa sessione; contenuti acquisiti via screenshot forniti
+dall'utente, vedi sezione "Contenuti reali" sotto).
+
+Il Framer esistente ha un'identità visiva molto diversa (desktop retro anni
+'90, pixel art, finestre draggabili, wordmark "MAD") — l'utente ha scelto
+esplicitamente di **non** portarla nel nuovo sito: si tiene l'editoriale
+nero+teal+Geist già approvato, il Framer serve solo come fonte di contenuti
+(bio, progetti, link) da riscrivere in italiano.
 
 Repo di destinazione: `ciao-madesign/personalhub`.
 Branch di lavoro: `claude/personal-portfolio-site-a0613u`.
@@ -75,27 +81,57 @@ esplicita dell'utente di rimandarle). Per ora solo transizioni di base
 (colore/bordo su hover, ~150ms) e un fade-in leggero all'ingresso della hero,
 disattivato sotto `prefers-reduced-motion`.
 
-## Progetti reali (sostituiscono i placeholder)
+## Contenuti reali
 
-Repo aggiunte alla sessione e clonate in `/workspace/<repo>` per leggere i
-contenuti reali (README, doc di design) e scrivere descrizioni accurate
-invece di segnaposto:
+Due fonti diverse, tenute distinte:
 
-| Progetto | Repo | Categoria assegnata | Live URL | Note |
-|---|---|---|---|---|
-| DoqTool | `ciao-madesign/EasyDoc` | Technical writing | — (solo repo) | CCMS offline-first per PMI manifatturiere, editor HMI/PLC integrato |
-| WizTrail | `ciao-madesign/WizTrail` | UX design | https://ciao-madesign.github.io/WizTrail/ (dominio custom pending) | Calcolo difficoltà trail running (WDI) da GPX, tutto client-side |
-| Maccu | `ciao-madesign/Maccu` | Brand design | — (solo repo) | Sito vetrina photo-first per attività artigianale, con un vero design system (palette crema/argilla/inchiostro, 4 registri tipografici, Astro+Tailwind) |
-| Adapta | `ciao-madesign/Adapta` | Product design | https://adapta.run | Piattaforma di training per runner, piani adattivi, Next.js + AI opzionale (Claude) |
-| balzar | `ciao-madesign/balzar` | Product design | — (solo repo) | Generazione deterministica di contenuti da payload minimo via QR, motore Python puro |
+**Repo GitHub** (aggiunte alla sessione e clonate in `/workspace/<repo>` per
+leggere README/doc di design):
 
-Criterio di assegnazione categoria: non forzato a 1 progetto/categoria — dove
-un progetto è chiaramente rappresentativo di più aree (es. Adapta è anche UX)
-si è scelta la categoria più distintiva rispetto agli altri progetti già
-assegnati, per evitare sovrapposizioni inutili nella griglia.
+| Progetto | Repo | Categoria | Link nel sito |
+|---|---|---|---|
+| DoqTool | `ciao-madesign/EasyDoc` | Technical writing | repo (nessuna demo web ancora) |
+| WizTrail | `ciao-madesign/WizTrail` | UX design | https://wiz-trail.vercel.app/ |
+| Maccu | `ciao-madesign/Maccu` | Brand design | repo (nessun URL live confermato) |
+| Adapta | `ciao-madesign/Adapta` | Product design | https://adapta.run |
+| balzar | `ciao-madesign/balzar` | Product design | https://balzar-eight.vercel.app/ |
 
-Per DoqTool, Maccu e balzar non risulta un URL di produzione confermato nei
-repo — i link puntano alla repo GitHub finché non vengono forniti URL live.
+**Framer** (bio + case study "Work" + sketch, letti da screenshot forniti
+dall'utente, riscritti in italiano):
+
+| Progetto | Categoria | Link nel sito | Note |
+|---|---|---|---|
+| Wego | UX design | PDF process deck | App carpooling, case study completo |
+| Sign up page | UX design | Figma prototype | Sketch, template UI |
+| Lynx ProVision | UX design | link Framer (progetto, non pubblicato — possibile 403 per chi non ha accesso) | Sketch, landing page occhiali sportivi |
+| KB | Brand design | PDF process deck | Brand abbigliamento tecnico alpino |
+| asd Taino | Brand design | PDF overview | Rebrand società sportiva locale |
+| Vetta Mountainwear | Brand design | Figma prototype | Sketch, naming + logo |
+| Logo 4 fun — Rundagi Trail | Brand design | nessuno | Sketch, card statica (no link) |
+| Jeff | Product design | Figma prototype | App mobile anti-spreco alimentare |
+| Buon Mercato | Product design | PDF process deck | Marketplace produttori locali |
+| Fresco | Product design | nessuno | Sketch/case study, card statica (no link) — attenzione: nella cartella "Work" del Framer compare come icona separata da "Buon Mercato", **non** sono lo stesso progetto |
+
+Bio hero riscritta a partire da quella reale del Framer ("Hi, I'm Michele, a
+designer with a passion for creative communication...").
+
+**Criterio di categorizzazione**: non forzato a 1 progetto/categoria — dove
+un progetto è rappresentativo di più aree si è scelta la categoria più
+distintiva rispetto a quanto già assegnato. Gli sketch (lavori più leggeri,
+spesso senza processo documentato) **non** hanno una sezione a parte —
+richiesta esplicita dell'utente: vivono dentro le stesse 4 categorie dei
+progetti "pesanti", distinti solo dal meta-tag "Sketch" nella card invece di
+un anno inventato.
+
+**Sistema meta-tag delle card** (sostituisce l'anno, che non avevamo per i
+progetti Framer e non volevamo inventare): prima colonna = "peso" della voce
+(`Live product` / `Progetto` / `Case study` / `Sketch`), seconda colonna =
+dominio/una riga descrittiva. Il tag pill sulla thumbnail segue lo stesso
+criterio del link: `LIVE` (demo pubblica), `REPO` (solo codice), `DECK` (PDF
+di processo), `LINK` (prototipo Figma/Framer). Le card senza link esterno
+(Fresco, Logo 4 fun) sono `<div class="project static">` invece di `<a>` —
+niente hover/cursor da link, niente tag pill: l'assenza comunica l'assenza
+di risorsa, non serve un'etichetta esplicita.
 
 ## Stack: niente Next.js/Tailwind
 
@@ -149,18 +185,19 @@ necessaria, è già puro output statico.
 
 ## Stato attuale
 
-- [x] Direzione visiva approvata (lista nera + hero ibrida)
+- [x] Direzione visiva approvata (lista nera + hero ibrida) — confermato di
+      NON adottare l'estetica retro/pixel del Framer esistente
 - [x] Decisione stack: HTML/CSS statico, no framework
 - [x] Sito reale scaffoldato (`index.html` + `styles.css` + `fonts/`),
       verificato in browser (desktop + mobile)
+- [x] Contenuti reali importati da Framer (via screenshot) + repo GitHub:
+      15 voci totali su 4 categorie (vedi tabella sopra), bio hero riscritta
 - [ ] Microinterazioni (rimandate, da definire in una sessione successiva)
 - [ ] Foto reale dell'utente al posto del placeholder "MA" nell'hero
-- [ ] URL live per DoqTool/Maccu/balzar, se/quando disponibili
-- [ ] Contenuti dal portfolio Framer esistente (madesign.framer.ai) — non
-      raggiungibile dal proxy di rete di questa sessione (403 a livello di
-      tunnel, confermato via `/__agentproxy/status`: policy denial su
-      `framer.ai`, non un problema del sito). L'utente porterà screenshot
-      delle pagine nella prossima interazione.
+- [ ] Thumbnail reali dei progetti al posto del placeholder pattern
+      diagonale (nessuna immagine è stata scaricata/incorporata da fonti
+      esterne — solo i link di approfondimento)
+- [ ] URL live per DoqTool/Maccu, se/quando disponibili
 - [x] Branch di lavoro mergiato su `main` (merge fast-forward, nessun
       conflitto) — `main` ora contiene il sito statico completo
 - [ ] Attivare GitHub Pages sul repo (Settings → Pages → Source: Deploy
@@ -169,9 +206,9 @@ necessaria, è già puro output statico.
 
 ## Prossimi passi proposti
 
-1. Utente porta screenshot del portfolio Framer → aggiornare copy/contenuti
-   di conseguenza (about, eventuali progetti non ancora coperti).
-2. Sostituire il placeholder "MA"/"la tua foto qui" con una foto reale.
-3. Attivare GitHub Pages (merge su `main` + Settings → Pages) per avere
-   l'URL pubblico https://ciao-madesign.github.io/personalhub/ live.
+1. Sostituire il placeholder "MA"/"la tua foto qui" con una foto reale
+   (l'utente ne ha una, usata nel Framer per la pagina /about).
+2. Procurarsi/esportare immagini reali per le thumbnail dei 15 progetti.
+3. Attivare GitHub Pages (Settings → Pages, branch `main`) per avere l'URL
+   pubblico https://ciao-madesign.github.io/personalhub/ live.
 4. Tornare sulle microinterazioni una volta stabili contenuti e struttura.
