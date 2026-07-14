@@ -66,11 +66,9 @@ coerenza con l'accento, invece di restare grigi neutri di default.
 
 ## Tipografia
 
-- **Instrument Serif** (peso 400 unico, normal + italic) — display: nome in
-  hero (h1), titoli dei progetti (h3), bio hero (italic), firma nel footer
-  (italic). Un solo peso disponibile: nessun `font-weight` diverso da 400 va
-  usato con questa famiglia (niente 500/600/700, il browser farebbe un
-  fake-bold).
+- **Piazzolla** (variabile, peso 400–700, normal + italic) — display: nome
+  in hero (h1, peso 700), titoli dei progetti (h3, peso 700), bio hero
+  (italic, peso 500), firma nel footer (italic, peso 500).
 - **Instrument Sans** (variabile, peso 400–700, normal + italic) — body:
   descrizioni progetto, intro di sezione, testo corrente generico.
 - **Geist Mono** (variabile) — tenuto per label, tag di categoria, meta dati,
@@ -79,13 +77,15 @@ coerenza con l'accento, invece di restare grigi neutri di default.
 
 Storia: prima iterazione Fraunces + IBM Plex Mono ("troppo industrial") →
 Geist + Geist Mono ("più tech", legato all'hosting Vercel inizialmente
-previsto) → **Instrument Serif + Instrument Sans** ("più elegante, meno
-tech" — richiesta esplicita dopo il passaggio a GitHub Pages, quindi il
-legame con Vercel non era più un argomento a favore di Geist). Instrument
-Serif è stato scelto tra tre proposte (alternative: Fraunces uno "usato con
-più delicatezza", o Cormorant Garamond per continuità con il Framer
-originale) perché è la coppia più "di tendenza" nel design editoriale
-attuale, coerente con la richiesta di un sito "attento alle tendenze".
+previsto) → Instrument Serif + Instrument Sans ("più elegante, meno tech" —
+richiesta esplicita dopo il passaggio a GitHub Pages) → **Piazzolla**
+(sostituisce solo il display, Instrument Sans resta per il body): Instrument
+Serif aveva un solo peso disponibile (400), troppo sottile/delicato secondo
+l'utente ("non mi convince, voglio font più spessi"). Proposte tre
+alternative con peso alto in una preview a confronto (Fraunces 700, Bodoni
+Moda 700, Piazzolla 700) — scelto Piazzolla: serif "da libro", solido già di
+suo, meno contrasto/drammaticità di Bodoni Moda, più presenza di Instrument
+Serif senza scadere nel vistoso.
 
 Font serviti come file statici self-hosted in `fonts/` (non data URI, vedi
 sezione sulla struttura del repo).
@@ -110,6 +110,11 @@ lentamente (70s, ease-in-out, alternate) via `@keyframes`; i due layer usano
 che attraversa invece di limitarsi a sovrapporsi. `prefers-reduced-motion`
 disattiva l'animazione (resta la griglia statica). `pointer-events: none`
 per non intercettare i click.
+
+**Corretto dopo la prima resa**: l'utente l'ha trovato "troppo invadente,
+colorato, fitto" → puntini e chiarore passati da colore accento (teal) a
+neutro (`--paper`), opacità dimezzata (24%→6% il chiarore, 38%→12% i
+puntini), spaziatura griglia allargata (24px → 34px, meno fitta).
 
 **Bug trovato e corretto**: la prima versione usava `z-index: -1` sul div,
 pensando lo mandasse dietro a tutto — invece lo mandava dietro anche allo
@@ -150,7 +155,7 @@ dall'utente, riscritti in italiano):
 | Logo 4 fun — Rundagi Trail | Brand design | nessuno | Sketch, card statica (no link) |
 | Jeff | UX design | Figma prototype | App mobile anti-spreco alimentare |
 | Fresco | UX design | nessuno | Sketch/case study, card statica (no link) — attenzione: nella cartella "Work" del Framer compare come icona separata da "Buon Mercato", **non** sono lo stesso progetto |
-| Buon Mercato | Product design | PDF process deck | Marketplace produttori locali |
+| Buon Mercato | UX design | PDF process deck | Marketplace produttori locali |
 
 Bio hero riscritta a partire da quella reale del Framer ("Hi, I'm Michele, a
 designer with a passion for creative communication...").
@@ -237,8 +242,8 @@ index.html       — unica pagina, markup semantico, nessun JS (non ancora
 styles.css        — tutti gli stili, token colore/tipografia come custom
                     properties su :root (stessi valori descritti sopra)
 fonts/
-  instrument-serif.woff2         — Instrument Serif normal, peso 400 unico
-  instrument-serif-italic.woff2  — Instrument Serif italic, peso 400 unico
+  piazzolla.woff2                — Piazzolla variabile (400–700), normal
+  piazzolla-italic.woff2         — Piazzolla variabile (400–700), italic
   instrument-sans.woff2          — Instrument Sans variabile (400–700), normal
   instrument-sans-italic.woff2   — Instrument Sans variabile (400–700), italic
   geist-mono.woff2               — Geist Mono variabile (100–900), self-hosted

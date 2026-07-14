@@ -1,16 +1,16 @@
 @font-face {
-  font-family: 'Instrument Serif';
+  font-family: 'Piazzolla';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400 700;
   font-display: swap;
-  src: url('fonts/instrument-serif.woff2') format('woff2');
+  src: url('fonts/piazzolla.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'Instrument Serif';
+  font-family: 'Piazzolla';
   font-style: italic;
-  font-weight: 400;
+  font-weight: 400 700;
   font-display: swap;
-  src: url('fonts/instrument-serif-italic.woff2') format('woff2');
+  src: url('fonts/piazzolla-italic.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Instrument Sans';
@@ -46,7 +46,7 @@
   --accent-soft: #37b8ac33;
   --hair: #1f2929;
   --radius: 2px;
-  --font-display: 'Instrument Serif', Georgia, 'Iowan Old Style', serif;
+  --font-display: 'Piazzolla', Georgia, 'Iowan Old Style', serif;
   --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --font-body: 'Instrument Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
@@ -206,9 +206,9 @@ a:focus-visible, button:focus-visible {
 
 .hero-text h1 {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(3rem, 6vw + 1rem, 5.4rem);
-  line-height: 0.98;
+  font-weight: 700;
+  font-size: clamp(2.75rem, 5.4vw + 1rem, 5rem);
+  line-height: 1;
   letter-spacing: -0.01em;
   margin: 0 0 1.1rem;
   text-wrap: balance;
@@ -224,7 +224,7 @@ a:focus-visible, button:focus-visible {
 .hero-text p.about {
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   font-size: clamp(1.2rem, 1.1vw + 0.95rem, 1.45rem);
   line-height: 1.5;
   max-width: 42ch;
@@ -402,8 +402,8 @@ section.discipline {
 }
 .project h3 {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.3rem;
+  font-weight: 700;
+  font-size: 1.25rem;
   line-height: 1.2;
   margin: 0.35rem 0 0.25rem;
   color: var(--paper);
@@ -432,7 +432,7 @@ footer {
 footer .sign {
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 1.35rem;
   color: var(--paper);
   margin: 0;
