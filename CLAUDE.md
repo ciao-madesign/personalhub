@@ -210,7 +210,11 @@ necessaria, è già puro output statico.
 - [x] Contenuti reali importati da Framer (via screenshot) + repo GitHub:
       15 voci totali su 4 categorie (vedi tabella sopra), bio hero riscritta
 - [ ] Microinterazioni (rimandate, da definire in una sessione successiva)
-- [ ] Foto reale dell'utente al posto del placeholder "MA" nell'hero
+- [ ] Foto reale dell'utente al posto del placeholder "MA" nell'hero —
+      markup/CSS già pronti (`<img src="img/profile.png">` in `.orbit-center`,
+      ritaglio circolare via `object-fit: cover`), manca solo il file: questa
+      sessione non ha accesso filesystem alle immagini incollate in chat,
+      l'utente la carica direttamente nel repo su `img/profile.png`
 - [ ] Thumbnail reali dei progetti al posto del placeholder pattern
       diagonale (nessuna immagine è stata scaricata/incorporata da fonti
       esterne — solo i link di approfondimento)
