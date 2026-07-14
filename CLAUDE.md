@@ -32,10 +32,22 @@ le decisioni di design/contenuto prese finora, non solo un log.
 Tra due concept proposti (grafo "a molecola" con nodi interattivi vs. pagina
 nera con lista progetti per categoria), l'utente ha scelto la seconda,
 ibridata con un elemento della prima: nell'hero, un nodo centrale (avatar)
-con le 4 competenze come pillole cliccabili che si irradiano attorno e
+con le competenze come pillole cliccabili che si irradiano attorno e
 scrollano alla sezione corrispondente. Il grafo NON si estende ai progetti
 (troppo fragile su mobile / con pochi o tanti item) — resta confinato
 all'hero.
+
+**Da 4 a 3 competenze in hero/nav**: inizialmente 4 (Product/Technical
+writing/UX/Brand), poi Technical writing è stata assorbita dentro Product
+design (vedi sezione "Contenuti reali" → DoqTool) su richiesta dell'utente:
+"DoqTool è technical writing ma lo allineerei a product design come
+sottocategoria — è un product design di un prodotto specifico per technical
+writing". Nessuna nuova UI per la sottocategoria (sarebbe over-engineering
+per una sola card): DoqTool vive come card normale dentro la griglia Product
+design, il taglio "technical writing" resta leggibile dal titolo/descrizione
+della card stessa, non da un'etichetta dedicata. Pillole hero e nav in alto
+ora hanno 3 voci, non più 4 — grafo orbitale ridisposto a triangolo (alto,
+basso-destra, basso-sinistra) invece del layout a 4 punti.
 
 Struttura one-page, sezioni per competenza, ciascuna con una griglia di
 progetti (card con thumbnail segnaposto, titolo, descrizione breve, meta in
@@ -135,7 +147,7 @@ leggere README/doc di design):
 
 | Progetto | Repo | Categoria | Link nel sito |
 |---|---|---|---|
-| DoqTool | `ciao-madesign/EasyDoc` | Technical writing | repo (nessuna demo web ancora) |
+| DoqTool | `ciao-madesign/EasyDoc` | Product design | repo (nessuna demo web ancora) |
 | WizTrail | `ciao-madesign/WizTrail` | Product design | https://wiz-trail.vercel.app/ |
 | Maccu | `ciao-madesign/Maccu` | Brand design | repo (nessun URL live confermato) |
 | Adapta | `ciao-madesign/Adapta` | Product design | https://adapta.run |
@@ -182,11 +194,18 @@ Corretto dopo la prima stesura, su indicazione dell'utente:
 - **Vetta Mountainwear** spostato in prima posizione nella sezione Brand
   design (richiesta esplicita), le altre voci seguono nell'ordine
   precedente.
+- **Buon Mercato** → UX design (non Product): richiesta esplicita
+  dell'utente, nessuna motivazione di contenuto data — se serve rivalutare
+  in futuro, il testo descrive un marketplace/piattaforma quindi
+  starebbe altrettanto bene in Product design.
+- **DoqTool** → assorbito dentro Product design, sezione "Technical
+  writing" eliminata come sezione a sé (vedi "Direzione scelta" sopra per
+  il ragionamento completo).
 
-**Ordine delle sezioni**: Product design, Technical writing, UX design,
-Brand design — priorità esplicita dell'utente (non l'ordine alfabetico/
-originale usato in precedenza). Stesso ordine riflesso nella nav in alto e
-nelle pillole dell'hero.
+**Ordine delle sezioni**: Product design, UX design, Brand design —
+priorità esplicita dell'utente (non l'ordine alfabetico/originale usato in
+precedenza). Stesso ordine riflesso nella nav in alto e nelle pillole
+dell'hero.
 
 **Sistema meta-tag delle card** (sostituisce l'anno, che non avevamo per i
 progetti Framer e non volevamo inventare): prima colonna = "peso" della voce
