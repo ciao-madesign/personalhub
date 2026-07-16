@@ -118,10 +118,11 @@ Serif senza scadere nel vistoso.
 Font serviti come file statici self-hosted in `fonts/` (non data URI, vedi
 sezione sulla struttura del repo).
 
-Microinterazioni: non ancora affrontate ("le vediamo più tardi" — richiesta
-esplicita dell'utente di rimandarle). Per ora solo transizioni di base
-(colore/bordo su hover, ~150ms) e un fade-in leggero all'ingresso della hero,
-disattivato sotto `prefers-reduced-motion`.
+Microinterazioni: rimandate a lungo ("le vediamo più tardi"), poi
+implementate su richiesta esplicita — prima proposte come lista di opzioni
+(stagger reveal, divisori "disegnati", parallax hover thumbnail, battito sui
+tag LIVE, parallax hero, luce che segue il cursore), poi tutte approvate e
+costruite. Vedi sezione "Microinterazioni (JS)" più sotto per l'implementazione.
 
 ## Sfondo animato
 
@@ -153,6 +154,68 @@ esplicito (anche negativo) partecipa allo stacking context della radice, che
 si piazza sotto il colore di sfondo del `<body>` stesso. Soluzione: nessuno
 `z-index` sul div, lasciato come primo figlio di `<body>` così l'ordine nel
 DOM basta a tenerlo dietro a header/main.
+
+## Microinterazioni (JS)
+
+Prima introduzione di JavaScript nel sito (`script.js`, un IIFE, nessuna
+dipendenza esterna) — fino a qui il sito era volutamente a zero JS. Sei
+effetti, tutti proposti come lista di opzioni all'utente e poi approvati
+in blocco:
+
+1. **Card stagger reveal**: le `.project` card partono a `opacity:0` /
+   `translate: 0 16px` e diventano visibili (classe `.in-view`) quando
+   entrano nel viewport via `IntersectionObserver`, con un piccolo
+   `transition-delay` scalato sull'indice della card nella propria griglia
+   (`--reveal-delay`, 70ms per card) per l'effetto a cascata.
+2. **Divisori "disegnati"**: la linea sottile tra le sezioni non è più un
+   `border-top` statico ma uno `::before` con `transform: scaleX(0) →
+   scaleX(1)` animato quando la sezione entra nel viewport (stesso
+   `IntersectionObserver`, soglia diversa).
+3. **Parallax hover sulle thumbnail**: al `mousemove` sopra una `.thumb`,
+   l'immagine di sfondo si sposta di pochi px in direzione opposta al
+   cursore (`--thumb-x`/`--thumb-y`, calcolate nel `background-position`
+   via `calc()`), torna a 0 al `mouseleave`.
+4. **Battito sui tag `LIVE`**: `@keyframes tag-pulse` (opacità
+   100%→55%→100%, 2.4s) su `.tag.tag-live` — classe aggiunta solo ai tag
+   `LIVE` effettivi (Adapta, WizTrail; Balzar/DoqTool sono stati rietichettati
+   `DEMO` dall'utente direttamente su GitHub, quindi non pulsano). Puro CSS,
+   nessuna dipendenza da JS.
+5. **Parallax nella hero**: scrollando, il grafo orbitale si sposta più
+   lento del testo (`translateY(scrollY * -0.12)`, clampato a ±40px). Solo
+   desktop (`min-width: 760px`), calcolato in un handler di scroll con
+   `requestAnimationFrame`.
+6. **Luce che segue il cursore**: terzo layer aggiunto a `.bg-decor`
+   (`--cursor-glow`, default `none`), un `radial-gradient` la cui posizione
+   viene aggiornata ad ogni frame con un lerp verso la posizione del mouse
+   (`curX += (targetX - curX) * 0.06`) per un movimento morbido invece che a
+   scatti. Resta `none` (invisibile) finché l'utente non muove il mouse
+   almeno una volta — niente luce "fantasma" al centro schermo prima di
+   qualunque interazione.
+
+**Pattern di sicurezza usati per non rompere nulla**:
+- **Reduced motion rispettato ovunque**: `script.js` controlla
+  `prefers-reduced-motion: reduce` in cima e fa `return` subito se attivo —
+  nessuno dei sei effetti si attiva, verificato per ciascuno via
+  `page.emulateMedia({ reducedMotion: 'reduce' })` in Playwright.
+- **Progressive enhancement per il reveal**: la classe `.js-reveal` (che
+  abilita `opacity:0`/`scaleX(0)` di partenza per card e divisori) viene
+  aggiunta a `<html>` solo da JS. Se JS non gira per qualunque motivo, card
+  e divisori restano semplicemente sempre visibili invece di restare
+  bloccati invisibili — mai un elemento nascosto "a meno che" JS lo mostri.
+- **Bug evitato sul parallax hero**: il `.orbit` esterno ha già una CSS
+  animation (`reveal`/`rise`, fade-in all'ingresso pagina) con
+  `animation-fill-mode: both` sulla proprietà `transform` — se il parallax
+  JS avesse scritto `transform` direttamente su `.orbit`, l'animazione CSS
+  persistente (che ha priorità di cascade più alta di uno style inline)
+  avrebbe silenziosamente ignorato/sovrascritto il valore JS. Soluzione:
+  aggiunto un wrapper interno `.orbit-parallax` (`position:absolute;
+  inset:0`, stesse dimensioni del genitore) che riceve il `transform` del
+  parallax, lasciando `.orbit` libero di gestire solo il proprio fade-in.
+- **`.thumb` a due livelli di background** (immagine + pattern segnaposto,
+  vedi sezione Contenuti reali) già usava `background-position` per
+  entrambi i layer: il parallax aggiunge l'offset solo al layer
+  dell'immagine via `calc(50% + var(--thumb-x))`, il layer del pattern
+  resta a `0 0` fisso.
 
 ## Contenuti reali
 
@@ -299,10 +362,13 @@ rivaluta — ma non si progetta ora per quello scenario ipotetico.
 ## Struttura del repo (sito reale)
 
 ```
-index.html       — unica pagina, markup semantico, nessun JS (non ancora
-                    necessario: lo smooth scroll è CSS, `scroll-behavior`)
+index.html       — unica pagina, markup semantico
 styles.css        — tutti gli stili, token colore/tipografia come custom
                     properties su :root (stessi valori descritti sopra)
+script.js         — microinterazioni (reveal a scroll, parallax, luce
+                    cursore, battito tag LIVE), vedi sezione dedicata sopra.
+                    Unico JS del sito: lo smooth scroll resta CSS
+                    (`scroll-behavior`), non serviva JS per quello.
 fonts/
   piazzolla.woff2                — Piazzolla variabile (400–700), normal
   piazzolla-italic.woff2         — Piazzolla variabile (400–700), italic
@@ -357,7 +423,9 @@ necessaria, è già puro output statico.
       verificato in browser (desktop + mobile)
 - [x] Contenuti reali importati da Framer (via screenshot) + repo GitHub:
       15 voci totali su 4 categorie (vedi tabella sopra), bio hero riscritta
-- [ ] Microinterazioni (rimandate, da definire in una sessione successiva)
+- [x] Microinterazioni: stagger reveal, divisori disegnati, parallax hover
+      thumbnail, battito tag LIVE, parallax hero, luce che segue il cursore
+      — vedi sezione "Microinterazioni (JS)"
 - [x] Foto reale dell'utente al posto del placeholder "MA" nell'hero —
       l'utente ha caricato `img/profile.png` direttamente su `main` via
       GitHub UI, mergiato nel branch di lavoro

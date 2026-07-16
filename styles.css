@@ -68,17 +68,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- ambient background: dot grid + slow-moving light ---------- */
+/* ---------- ambient background: dot grid + slow-moving light + cursor glow ---------- */
 .bg-decor {
+  --cursor-glow: none;
   position: fixed;
   inset: 0;
   pointer-events: none;
   background-image:
+    var(--cursor-glow),
     radial-gradient(circle 42vmax at 20% 25%, color-mix(in srgb, var(--paper) 6%, transparent), transparent 70%),
     radial-gradient(color-mix(in srgb, var(--paper) 12%, transparent) 1px, transparent 1.5px);
-  background-size: 100% 100%, 34px 34px;
-  background-repeat: no-repeat, repeat;
-  background-blend-mode: screen, normal;
+  background-size: 100% 100%, 100% 100%, 34px 34px;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-blend-mode: screen, screen, normal;
 }
 @media (prefers-reduced-motion: no-preference) {
   .bg-decor {
@@ -86,9 +88,9 @@ body {
   }
 }
 @keyframes bg-drift {
-  0%   { background-position: 10% 15%, 0 0; }
-  50%  { background-position: 85% 60%, 0 0; }
-  100% { background-position: 25% 85%, 0 0; }
+  0%   { background-position: 0 0, 10% 15%, 0 0; }
+  50%  { background-position: 0 0, 85% 60%, 0 0; }
+  100% { background-position: 0 0, 25% 85%, 0 0; }
 }
 
 a { color: inherit; }
@@ -242,6 +244,10 @@ a:focus-visible, button:focus-visible {
   margin: 0 auto;
   justify-self: center;
 }
+.orbit-parallax {
+  position: absolute;
+  inset: 0;
+}
 .orbit-center {
   position: absolute;
   top: 50%;
@@ -334,8 +340,25 @@ a:focus-visible, button:focus-visible {
 
 /* ---------- sections ---------- */
 section.discipline {
+  position: relative;
   padding: clamp(1.75rem, 4vw, 2.75rem) 0;
-  border-top: 1px solid var(--hair);
+}
+section.discipline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--hair);
+}
+.js-reveal section.discipline::before {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s ease;
+}
+.js-reveal section.discipline.in-view::before {
+  transform: scaleX(1);
 }
 .discipline-head {
   display: flex;
@@ -375,6 +398,16 @@ section.discipline {
   text-decoration: none;
   color: inherit;
 }
+.js-reveal .project {
+  opacity: 0;
+  translate: 0 16px;
+  transition: opacity 0.5s ease, translate 0.5s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js-reveal .project.in-view {
+  opacity: 1;
+  translate: 0 0;
+}
 .project.featured {
   grid-column: span 2;
 }
@@ -389,16 +422,18 @@ section.discipline {
 }
 .thumb {
   --thumb-img: none;
+  --thumb-x: 0px;
+  --thumb-y: 0px;
   position: relative;
   aspect-ratio: 3 / 2;
   border: 1px solid var(--hair);
   background-image: var(--thumb-img),
     repeating-linear-gradient(135deg, var(--ink-raised) 0 2px, var(--ink) 2px 14px);
   background-size: cover, auto;
-  background-position: center, 0 0;
+  background-position: calc(50% + var(--thumb-x)) calc(50% + var(--thumb-y)), 0 0;
   background-repeat: no-repeat, repeat;
   overflow: hidden;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, background-position 0.2s ease-out;
 }
 .thumb .tag {
   position: absolute;
@@ -411,6 +446,15 @@ section.discipline {
   background: var(--accent);
   padding: 0.18rem 0.45rem;
   border-radius: 999px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tag.tag-live {
+    animation: tag-pulse 2.4s ease-in-out infinite;
+  }
+}
+@keyframes tag-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
 }
 .project:hover .thumb { border-color: var(--accent); }
 .project.static { cursor: default; }
