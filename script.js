@@ -41,8 +41,8 @@
       var rect = thumb.getBoundingClientRect();
       var relX = (e.clientX - rect.left) / rect.width - 0.5;
       var relY = (e.clientY - rect.top) / rect.height - 0.5;
-      thumb.style.setProperty('--thumb-x', (relX * -10).toFixed(1) + 'px');
-      thumb.style.setProperty('--thumb-y', (relY * -10).toFixed(1) + 'px');
+      thumb.style.setProperty('--thumb-x', (relX * -5).toFixed(1) + 'px');
+      thumb.style.setProperty('--thumb-y', (relY * -5).toFixed(1) + 'px');
     });
     thumb.addEventListener('mouseleave', function () {
       thumb.style.setProperty('--thumb-x', '0px');

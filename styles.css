@@ -433,7 +433,7 @@ section.discipline::before {
   background-position: calc(50% + var(--thumb-x)) calc(50% + var(--thumb-y)), 0 0;
   background-repeat: no-repeat, repeat;
   overflow: hidden;
-  transition: border-color 0.15s ease, background-position 0.2s ease-out;
+  transition: border-color 0.15s ease, background-position 0.4s ease-out;
 }
 .thumb .tag {
   position: absolute;
