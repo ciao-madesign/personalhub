@@ -243,13 +243,12 @@ emergenze e operazioni umanitarie — un prototipo software funzionante,
 non un mockup (rete/routing/crittografia/cache testati su rete locale
 reale; i dispositivi radio fisici non sono ancora stati costruiti). Il sito
 pubblico (`site/`, HTML/CSS/JS statico, deployato su Vercel con Root
-Directory `site`) è quello linkato dalla card. **Screenshot della home non
-catturato**: il proxy di rete di questa sessione nega esplicitamente
+Directory `site`) è quello linkato dalla card. **Screenshot della home**:
+non catturato da questa sessione — il proxy di rete nega esplicitamente
 `arald.vercel.app` (403 a livello di tunnel, stesso limite già incontrato
-con `framer.ai` in una sessione precedente) — l'aggancio
-`img/projects/arald.png` è già pronto e ricade sul segnaposto finché
-l'utente non carica l'immagine (stesso meccanismo di tutti gli altri
-progetti).
+con `framer.ai` in una sessione precedente) — ma l'utente ha caricato
+`img/projects/arald.png` subito dopo (nessun duplicato questa volta, solo
+il file al posto giusto), quindi la card ora mostra l'immagine reale.
 
 **Framer** (bio + case study "Work" + sketch, letti da screenshot forniti
 dall'utente, riscritti in italiano):
@@ -354,7 +353,7 @@ img/projects/balzar.png           img/projects/jeff.jpg
 img/projects/wiztrail.png         img/projects/sign-up-page.png
 img/projects/buon-mercato.png     img/projects/lynx-provision.png
 img/projects/doqtool.png          img/projects/fresco.png
-img/projects/arald.png            (non ancora caricata, vedi nota sopra)
+img/projects/arald.png
 img/projects/vetta-mountainwear.png
 img/projects/maccu.png
 img/projects/kb.png
@@ -362,10 +361,9 @@ img/projects/asd-taino.png
 img/projects/logo-4-fun.png
 ```
 
-Tutte e 15 originali caricate dall'utente e verificate a schermo (nessuna
-richiesta fallita) — `jeff.jpg` è l'unica in `.jpg` invece di `.png`
-(formato del file originale, il riferimento nel markup usa l'estensione
-reale). `arald.png` è la 16ª, non ancora caricata (vedi nota su ARALD sopra).
+Tutte e 16 caricate dall'utente e verificate a schermo (nessuna richiesta
+fallita) — `jeff.jpg` è l'unica in `.jpg` invece di `.png` (formato del
+file originale, il riferimento nel markup usa l'estensione reale).
 
 **Errori di upload ricorrenti, corretti**: l'utente ha caricato le
 immagini via GitHub UI due volte con problemi simili — (1) le prime 12
