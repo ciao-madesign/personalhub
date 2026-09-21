@@ -231,6 +231,25 @@ leggere README/doc di design):
 | Maccu | `ciao-madesign/Maccu` | Brand design | repo (nessun URL live confermato) |
 | Adapta | `ciao-madesign/Adapta` | Product design | https://adapta.run |
 | balzar | `ciao-madesign/balzar` | Product design | https://balzar-eight.vercel.app/ |
+| ARALD | `ciao-madesign/ARALD` | Product design | https://arald.vercel.app/ |
+
+**ARALD**, a differenza degli altri repo GitHub, non è stato letto da un
+clone completo per scrivere descrizioni — solo README della root (repo
+clonato in sola lettura via lane anonima, non allegato alla sessione) più
+`site/README.md`. È una rete mesh offline (telefoni, dispositivi radio,
+computer locali che si scambiano contenuti/messaggi senza internet/router/
+rete cellulare, store-and-forward) pensata per rifugi di montagna,
+emergenze e operazioni umanitarie — un prototipo software funzionante,
+non un mockup (rete/routing/crittografia/cache testati su rete locale
+reale; i dispositivi radio fisici non sono ancora stati costruiti). Il sito
+pubblico (`site/`, HTML/CSS/JS statico, deployato su Vercel con Root
+Directory `site`) è quello linkato dalla card. **Screenshot della home non
+catturato**: il proxy di rete di questa sessione nega esplicitamente
+`arald.vercel.app` (403 a livello di tunnel, stesso limite già incontrato
+con `framer.ai` in una sessione precedente) — l'aggancio
+`img/projects/arald.png` è già pronto e ricade sul segnaposto finché
+l'utente non carica l'immagine (stesso meccanismo di tutti gli altri
+progetti).
 
 **Framer** (bio + case study "Work" + sketch, letti da screenshot forniti
 dall'utente, riscritti in italiano):
@@ -319,10 +338,11 @@ formato cambiato da `.jpg` a `.png` su richiesta esplicita dell'utente):
 
 ```
 img/projects/adapta.png           img/projects/wego.png
-img/projects/balzar.png           img/projects/jeff.png
-img/projects/wiztrail.png         img/projects/jeff.jpg
-img/projects/buon-mercato.png     img/projects/sign-up-page.png
-img/projects/doqtool.png          img/projects/lynx-provision.png
+img/projects/balzar.png           img/projects/jeff.jpg
+img/projects/wiztrail.png         img/projects/sign-up-page.png
+img/projects/buon-mercato.png     img/projects/lynx-provision.png
+img/projects/doqtool.png          img/projects/fresco.png
+img/projects/arald.png            (non ancora caricata, vedi nota sopra)
 img/projects/vetta-mountainwear.png
 img/projects/maccu.png
 img/projects/kb.png
@@ -330,9 +350,10 @@ img/projects/asd-taino.png
 img/projects/logo-4-fun.png
 ```
 
-Tutte e 15 caricate dall'utente e verificate a schermo (nessuna richiesta
-fallita) — `jeff.jpg` è l'unica in `.jpg` invece di `.png` (formato del
-file originale, il riferimento nel markup usa l'estensione reale).
+Tutte e 15 originali caricate dall'utente e verificate a schermo (nessuna
+richiesta fallita) — `jeff.jpg` è l'unica in `.jpg` invece di `.png`
+(formato del file originale, il riferimento nel markup usa l'estensione
+reale). `arald.png` è la 16ª, non ancora caricata (vedi nota su ARALD sopra).
 
 **Errori di upload ricorrenti, corretti**: l'utente ha caricato le
 immagini via GitHub UI due volte con problemi simili — (1) le prime 12
