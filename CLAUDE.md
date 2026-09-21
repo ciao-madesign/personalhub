@@ -307,12 +307,24 @@ dell'hero.
 
 **Progetto in evidenza**: Adapta è il progetto più importante dell'utente
 ("il mio progetto top"), WizTrail il secondo — richiesta esplicita di
-metterli in evidenza/ordine. Implementato con classe `.project.featured`
-solo su Adapta: card a doppia larghezza (`grid-column: span 2`, torna a 1
-sotto 480px), bordo permanentemente accent (non solo in hover come le
-altre), titolo più grande, ed etichetta della prima colonna del meta
-cambiata da "Live product" a "Progetto principale". WizTrail spostato al
-secondo posto nella griglia Product design (dopo Adapta, prima di Balzar).
+metterli in evidenza/ordine. Implementato con classe `.project.featured`:
+card a doppia larghezza (`grid-column: span 2`, torna a 1 sotto 480px),
+bordo permanentemente accent (non solo in hover come le altre), titolo più
+grande. Solo Adapta ha anche l'etichetta della prima colonna del meta
+cambiata da "Live product" a "Progetto principale" — resta un'etichetta
+esclusiva sua, non riusata per altre card "featured", per non annacquare
+il senso di "IL progetto principale". WizTrail spostato al secondo posto
+nella griglia Product design (dopo Adapta, prima di Balzar).
+
+**ARALD featured anche lei** (richiesta esplicita, dopo l'aggiunta della
+card): stessa classe `.project.featured` di Adapta, meta invariato ("Live
+product"). Con due card a doppia larghezza nella stessa griglia
+(`grid-template-columns: repeat(auto-fill, minmax(210px, 1fr))`, 4 colonne
+a 1280px), l'auto-placement di CSS Grid le impagina senza buchi da solo:
+riga 1 = Adapta(2) + WizTrail(1) + Balzar(1) = 4 colonne piene; riga 2 =
+DoqTool(1) + ARALD(2), con l'ultima colonna vuota (normale fine riga, non
+un buco visivo) — verificato via screenshot, nessun `grid-auto-flow: dense`
+necessario.
 
 **Sistema meta-tag delle card** (sostituisce l'anno, che non avevamo per i
 progetti Framer e non volevamo inventare): prima colonna = "peso" della voce
