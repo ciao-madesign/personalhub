@@ -228,7 +228,6 @@ leggere README/doc di design):
 |---|---|---|---|
 | DoqTool | `ciao-madesign/EasyDoc` | Product design | repo (nessuna demo web ancora) |
 | WizTrail | `ciao-madesign/WizTrail` | Product design | https://wiz-trail.vercel.app/ |
-| Maccu | `ciao-madesign/Maccu` | Brand design | repo (nessun URL live confermato) |
 | Adapta | `ciao-madesign/Adapta` | Product design | https://adapta.run |
 | balzar | `ciao-madesign/balzar` | Product design | https://balzar-eight.vercel.app/ |
 | ARALD | `ciao-madesign/ARALD` | Product design | https://arald.vercel.app/ |
@@ -249,6 +248,13 @@ non catturato da questa sessione — il proxy di rete nega esplicitamente
 con `framer.ai` in una sessione precedente) — ma l'utente ha caricato
 `img/projects/arald.png` subito dopo (nessun duplicato questa volta, solo
 il file al posto giusto), quindi la card ora mostra l'immagine reale.
+
+**Maccu rimosso** (richiesta esplicita: "il progetto è fermo e non penso
+che proseguirà"). Tolta la card da Brand design, cancellato anche
+`img/projects/maccu.png` (non più referenziato da nessuna parte, niente
+motivo per tenerlo). Brand design ora ha 4 voci invece di 5: Vetta
+Mountainwear, KB, asd Taino, Logo 4 fun — verificato via screenshot che
+la griglia si richiude senza buchi.
 
 **Framer** (bio + case study "Work" + sketch, letti da screenshot forniti
 dall'utente, riscritti in italiano):
@@ -355,13 +361,12 @@ img/projects/buon-mercato.png     img/projects/lynx-provision.png
 img/projects/doqtool.png          img/projects/fresco.png
 img/projects/arald.png
 img/projects/vetta-mountainwear.png
-img/projects/maccu.png
 img/projects/kb.png
 img/projects/asd-taino.png
 img/projects/logo-4-fun.png
 ```
 
-Tutte e 16 caricate dall'utente e verificate a schermo (nessuna richiesta
+Tutte e 15 caricate dall'utente e verificate a schermo (nessuna richiesta
 fallita) — `jeff.jpg` è l'unica in `.jpg` invece di `.png` (formato del
 file originale, il riferimento nel markup usa l'estensione reale).
 
@@ -462,7 +467,9 @@ necessaria, è già puro output statico.
       GitHub UI, mergiato nel branch di lavoro
 - [x] Thumbnail reali per tutti e 15 i progetti, caricate dall'utente in
       `img/projects/` via GitHub UI
-- [ ] URL live per DoqTool/Maccu, se/quando disponibili
+- [x] URL live per DoqTool — l'utente ha aggiunto
+      `https://doqtool-easydocument.vercel.app/` direttamente (tag DEMO),
+      Maccu nel frattempo rimosso dal sito (vedi sopra)
 - [x] Branch di lavoro mergiato su `main` (merge fast-forward, nessun
       conflitto) — `main` ora contiene il sito statico completo
 - [ ] Attivare GitHub Pages sul repo (Settings → Pages → Source: Deploy
