@@ -450,14 +450,21 @@ Nessuna GitHub Action di build necessaria, è già puro output statico.
 **Pages era in realtà già attivo da luglio** (corregge la nota precedente
 "mai attivato"): la history delle run `pages build and deployment` del
 repo mostra deploy riusciti dal 14 luglio 2026 (run #12) fino al 21
-settembre (run #40). La run #41 (commit "Remove Maccu project card", push
-del 29 settembre) è però rimasta in coda per quasi un mese — segno che
-Pages è stato disattivato/unpublish nel frattempo, da cui il 404 "There
-isn't a GitHub Pages site here" visto dall'utente. La run #41 si è sbloccata
-ed è partita il 23 ottobre (probabilmente l'utente ha ri-attivato Settings
-→ Pages in quel momento). Per avere la certezza di un deploy fresco e non
-dipendere da quella run in coda, questa sessione ha pushato un commit
-nuovo su `main` per forzare una build pulita — vedi commit successivo.
+settembre (run #40). Da lì, la run #41 (commit "Remove Maccu project
+card", push del 29 settembre) è rimasta in coda — segno che Pages è
+stato disattivato/unpublish nel frattempo, da cui il 404 "There isn't a
+GitHub Pages site here" visto dall'utente il 23 ottobre.
+
+**Confermato via test**: pushare due commit nuovi su `main` il 23 ottobre
+(incluso questo stesso aggiornamento di CLAUDE.md) **non** ha generato
+nessuna nuova run — il conteggio totale delle run è rimasto fermo a 41,
+con la #41 sempre in coda dal 29 settembre. Questo conferma che Pages è
+spento adesso lato Settings, non un problema di contenuto/branch: un
+push qui non crea più deploy finché l'utente non ri-attiva Settings →
+Pages → Source: Deploy from a branch → `main` (root) → Save. Nessun
+tool GitHub disponibile in questa sessione permette di farlo da API.
+Una volta ri-attivato, il push successivo (anche solo questo) farà
+partire un deploy pulito da solo, senza bisogno di altro intervento.
 URL pubblico: `https://ciao-madesign.github.io/personalhub/` (non il
 dominio nudo, che non ha un sito Pages proprio).
 
@@ -483,12 +490,15 @@ dominio nudo, che non ha un sito Pages proprio).
       Maccu nel frattempo rimosso dal sito (vedi sopra)
 - [x] Branch di lavoro mergiato su `main` (merge fast-forward, nessun
       conflitto) — `main` ora contiene il sito statico completo
-- [x] GitHub Pages attivo su `main` (root) — vedi "Deploy su GitHub Pages"
-      sopra per la cronologia (attivo da luglio, disattivato temporaneamente,
-      ri-sbloccato il 23 ottobre con un commit di redeploy forzato)
+- [ ] Ri-attivare GitHub Pages sul repo (era attivo da luglio a settembre,
+      poi spento/unpublished — vedi "Deploy su GitHub Pages" sopra per la
+      cronologia e la verifica che un push da solo non basta più): Settings
+      → Pages → Source: Deploy from a branch → `main`, root → Save.
+      Questa sessione non ha strumenti per farlo da API.
 
 ## Prossimi passi proposti
 
-1. Verificare che `https://ciao-madesign.github.io/personalhub/` risponda
-   con 200 dopo il redeploy forzato del 23 ottobre.
+1. Ri-attivare Settings → Pages (vedi checklist sopra) — unico passo
+   rimasto, manuale, per riportare online
+   `https://ciao-madesign.github.io/personalhub/`.
 2. Tornare sulle microinterazioni una volta stabili contenuti e struttura.
