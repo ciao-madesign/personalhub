@@ -520,13 +520,6 @@ footer .contact {
   padding-bottom: 0.15rem;
 }
 footer .contact:hover { border-color: var(--accent); color: var(--accent-hover); }
-footer .note {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.03em;
-  color: var(--paper-faint);
-  margin-top: 1.25rem;
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
