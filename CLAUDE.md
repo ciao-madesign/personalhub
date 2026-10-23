@@ -444,11 +444,22 @@ via screenshot.
 ## Deploy su GitHub Pages
 
 `claude/personal-portfolio-site-a0613u` è stato mergiato (fast-forward) su
-`main`: `main` ora contiene `index.html` + `styles.css` + `fonts/` pronti.
-Manca solo l'ultimo passaggio manuale — Settings → Pages → Source: Deploy
-from a branch → `main` (root) — che questa sessione non ha strumenti per
-fare da API, va fatto dall'utente. Nessuna GitHub Action di build
-necessaria, è già puro output statico.
+`main`: `main` contiene `index.html` + `styles.css` + `fonts/` pronti.
+Nessuna GitHub Action di build necessaria, è già puro output statico.
+
+**Pages era in realtà già attivo da luglio** (corregge la nota precedente
+"mai attivato"): la history delle run `pages build and deployment` del
+repo mostra deploy riusciti dal 14 luglio 2026 (run #12) fino al 21
+settembre (run #40). La run #41 (commit "Remove Maccu project card", push
+del 29 settembre) è però rimasta in coda per quasi un mese — segno che
+Pages è stato disattivato/unpublish nel frattempo, da cui il 404 "There
+isn't a GitHub Pages site here" visto dall'utente. La run #41 si è sbloccata
+ed è partita il 23 ottobre (probabilmente l'utente ha ri-attivato Settings
+→ Pages in quel momento). Per avere la certezza di un deploy fresco e non
+dipendere da quella run in coda, questa sessione ha pushato un commit
+nuovo su `main` per forzare una build pulita — vedi commit successivo.
+URL pubblico: `https://ciao-madesign.github.io/personalhub/` (non il
+dominio nudo, che non ha un sito Pages proprio).
 
 ## Stato attuale
 
@@ -472,15 +483,12 @@ necessaria, è già puro output statico.
       Maccu nel frattempo rimosso dal sito (vedi sopra)
 - [x] Branch di lavoro mergiato su `main` (merge fast-forward, nessun
       conflitto) — `main` ora contiene il sito statico completo
-- [ ] Attivare GitHub Pages sul repo (Settings → Pages → Source: Deploy
-      from a branch → `main`, root) — ultimo passaggio manuale rimasto,
-      questa sessione non ha strumenti per farlo da API
+- [x] GitHub Pages attivo su `main` (root) — vedi "Deploy su GitHub Pages"
+      sopra per la cronologia (attivo da luglio, disattivato temporaneamente,
+      ri-sbloccato il 23 ottobre con un commit di redeploy forzato)
 
 ## Prossimi passi proposti
 
-1. Sostituire il placeholder "MA"/"la tua foto qui" con una foto reale
-   (l'utente ne ha una, usata nel Framer per la pagina /about).
-2. Procurarsi/esportare immagini reali per le thumbnail dei 15 progetti.
-3. Attivare GitHub Pages (Settings → Pages, branch `main`) per avere l'URL
-   pubblico https://ciao-madesign.github.io/personalhub/ live.
-4. Tornare sulle microinterazioni una volta stabili contenuti e struttura.
+1. Verificare che `https://ciao-madesign.github.io/personalhub/` risponda
+   con 200 dopo il redeploy forzato del 23 ottobre.
+2. Tornare sulle microinterazioni una volta stabili contenuti e struttura.
