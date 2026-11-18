@@ -512,15 +512,11 @@ dominio nudo, che non ha un sito Pages proprio).
       Maccu nel frattempo rimosso dal sito (vedi sopra)
 - [x] Branch di lavoro mergiato su `main` (merge fast-forward, nessun
       conflitto) — `main` ora contiene il sito statico completo
-- [ ] Ri-attivare GitHub Pages sul repo (era attivo da luglio a settembre,
-      poi spento/unpublished — vedi "Deploy su GitHub Pages" sopra per la
-      cronologia e la verifica che un push da solo non basta più): Settings
-      → Pages → Source: Deploy from a branch → `main`, root → Save.
-      Questa sessione non ha strumenti per farlo da API.
+- [x] GitHub Pages ri-attivato: l'utente conferma il sito online il 18
+      novembre 2026 (https://ciao-madesign.github.io/personalhub/). Da qui
+      un push su `main` fa partire un nuovo deploy.
+- [x] Greenweb aggiunto a Product design (card in evidenza, 18 nov 2026)
 
 ## Prossimi passi proposti
 
-1. Ri-attivare Settings → Pages (vedi checklist sopra) — unico passo
-   rimasto, manuale, per riportare online
-   `https://ciao-madesign.github.io/personalhub/`.
-2. Tornare sulle microinterazioni una volta stabili contenuti e struttura.
+1. Tornare sulle microinterazioni una volta stabili contenuti e struttura.
