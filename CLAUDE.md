@@ -231,6 +231,7 @@ leggere README/doc di design):
 | Adapta | `ciao-madesign/Adapta` | Product design | https://adapta.run |
 | balzar | `ciao-madesign/balzar` | Product design | https://balzar-eight.vercel.app/ |
 | ARALD | `ciao-madesign/ARALD` | Product design | https://arald.vercel.app/ |
+| Greenweb | `ciao-madesign/greenweb` | Product design | https://ciao-madesign.github.io/greenweb/ (pagina pubblica del progetto) |
 
 **ARALD**, a differenza degli altri repo GitHub, non è stato letto da un
 clone completo per scrivere descrizioni — solo README della root (repo
@@ -331,6 +332,27 @@ DoqTool(1) + ARALD(2), con l'ultima colonna vuota (normale fine riga, non
 un buco visivo) — verificato via screenshot, nessun `grid-auto-flow: dense`
 necessario.
 
+**Greenweb** (aggiunto il 18 novembre 2026, richiesta esplicita): estensione
+per browser che stima energia, CO₂e e acqua della navigazione, tutto sul
+dispositivo (nessun account, nessuna telemetria); pubblicata su Firefox (AMO)
+e come zip per Chrome/Edge/Brave. Card in **Product design**, `featured`
+(doppia larghezza, come Adapta e ARALD), tag `LIVE`, meta "Live product" ·
+"Estensione browser". Descrizione scelta dall'utente: corta, linguaggio
+semplice, con un accenno alla privacy. Link alla pagina pubblica (GitHub
+Pages del repo greenweb), non alla scheda dello store. Anteprima
+`img/projects/greenweb.png` (1500×1000, 3:2): composizione scura con la
+dashboard in dark mode e le tre foglie della barra, scelta tra tre candidate
+(dashboard scura, dashboard chiara, composizione).
+
+**Ordine in Product design cambiato per far tornare la griglia**: con tre
+card `featured` (span 2) e tre normali, a 4 colonne l'ordine precedente
+lasciava buchi. Ordine attuale: Adapta(2) + WizTrail + Balzar, poi ARALD(2) +
+Greenweb(2), poi DoqTool da sola in fondo (un solo orfano a sinistra,
+inevitabile: 9 celle su 4 colonne). DoqTool è passata da quarta a ultima solo
+per questo motivo di impaginazione, non per un giudizio sul progetto; se si
+vuole rivalutare, l'alternativa è renderla featured a sua volta o aggiungere
+una quarta card normale.
+
 **Sistema meta-tag delle card** (sostituisce l'anno, che non avevamo per i
 progetti Framer e non volevamo inventare): prima colonna = "peso" della voce
 (`Live product` / `Progetto` / `Case study` / `Sketch`), seconda colonna =
@@ -366,8 +388,8 @@ img/projects/asd-taino.png
 img/projects/logo-4-fun.png
 ```
 
-Tutte e 15 caricate dall'utente e verificate a schermo (nessuna richiesta
-fallita) — `jeff.jpg` è l'unica in `.jpg` invece di `.png` (formato del
+Le prime 15 caricate dall'utente e verificate a schermo (nessuna richiesta
+fallita); `greenweb.png` (16ª) generata in sessione — `jeff.jpg` è l'unica in `.jpg` invece di `.png` (formato del
 file originale, il riferimento nel markup usa l'estensione reale).
 
 **Errori di upload ricorrenti, corretti**: l'utente ha caricato le
@@ -476,7 +498,7 @@ dominio nudo, che non ha un sito Pages proprio).
 - [x] Sito reale scaffoldato (`index.html` + `styles.css` + `fonts/`),
       verificato in browser (desktop + mobile)
 - [x] Contenuti reali importati da Framer (via screenshot) + repo GitHub:
-      15 voci totali su 4 categorie (vedi tabella sopra), bio hero riscritta
+      16 voci totali su 4 categorie (vedi tabella sopra), bio hero riscritta
 - [x] Microinterazioni: stagger reveal, divisori disegnati, parallax hover
       thumbnail, battito tag LIVE, parallax hero, luce che segue il cursore
       — vedi sezione "Microinterazioni (JS)"
